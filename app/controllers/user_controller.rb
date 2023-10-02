@@ -11,6 +11,6 @@ class UserController < ApplicationController
     @user = User.new
     @user.username = params.fetch("input_username")
     @user.save
-    redirect_to("/users")
+    redirect_to("/users/#{@user.username}")
   end
 end

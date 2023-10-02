@@ -17,7 +17,7 @@
   <dd>
     <form action="/update_user/112" method="post">
       <label for="browser_username">Username</label>
-      <input id="browser_username" type="text" name="input_username" value=cristina>
+      <input id="browser_username" type="text" name="input_username" value=<%= @user.username %>>
 
       <button>Update user</button>
     </form>
@@ -48,28 +48,30 @@
     </th>
   </tr>
 
+<% Photo.where(:owner_id => @user_id).each do |photo|%>
 
     <tr>
       <td>
-        <img src=https://robohash.org/occaecatiquianimi.png?size=300x300&amp;set=set1>
+        <img src="https://robohash.org/occaecatiquianimi.png?size=300x300&amp;set=set1">
       </td>
 
       <td>
-        cristina
+        <%= @user.username %>
       </td>
 
       <td>
-        Do the dead frighten you?
+        <%= photo.caption %>
       </td>
 
       <td>
-        2018-05-14 01:47:42 UTC
+        <%= photo.created_at%>
       </td>
 
       <td>
-        <a href="/photos/880">
+        <a href="/photos/<%= photo.id %>">
           Show details
         </a>
       </td>
     </tr>
+    <% end %>
     </table>
