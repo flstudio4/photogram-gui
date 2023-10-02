@@ -35,7 +35,7 @@
     Edit photo
   </dt>
   <dd>
-    <form action="/update_photo/777" method="post">
+    <form action="/update_photo/" method="post">
       <label for="browser_image">Image</label>
       <input id="browser_image" type="text" name="input_image" placeholder="Enter a URL for the image..." value=https://robohash.org/dolorehicincidunt.png?size=300x300&amp;set=set1>
 
@@ -73,10 +73,12 @@
     </th>
   </tr>
 
+<% Comment.where(:photo_id => "@photo_id") do |comment|%>
+<% author_name = Author.where(:id => "comment.author_id").at(0).name %>
 
     <tr>
       <td>
-        robin
+        <%= author_name %>
       </td>
 
       <td>
@@ -87,6 +89,7 @@
         2019-04-29 22:16:30 UTC
       </td>
     </tr>
+    <% end %>
 </table>
 
 <h3>Add a new comment</h3>

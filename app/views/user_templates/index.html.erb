@@ -22,21 +22,22 @@
     <td>
     </td>
   </tr>
-
+<% User.all.each do |user|%>
 
     <tr>
       <td>
-        117
+        <%= user.id %>
       </td>
 
       <td>
-        anisa
+        <%= user.username %>
       </td>
 
       <td>
-        <a href="/users/anisa">
+        <a href="/users/<%= user.username %>">
           Show details
         </a>
       </td>
     </tr>
+    <% end %>
     </table>

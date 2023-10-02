@@ -1,11 +1,14 @@
-<h1>cristina</h1>
+<% the_user = params.fetch("user_name") %>
 
+<h1><%= the_user %> </h1>
+
+<% @user = User.where(:username => the_user).at(0) %>
 <dl>
   <dt>
     ID
   </dt>
   <dd>
-    112
+    <%= @user.id %>
   </dd>
 
   <dt>
