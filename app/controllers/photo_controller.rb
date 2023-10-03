@@ -1,5 +1,6 @@
 class PhotoController < ApplicationController
   def index
+    @pictures = Photo.all.order(:created_at => :desc)
     render(:template => "photo_templates/index")
   end
 
@@ -18,6 +19,29 @@ class PhotoController < ApplicationController
   end
 
   def update_photo
-    redirect_to("/photo/#{@comment.photo_id}")
+    @the_id = params.fetch("photo_id")
+    @pic = Photo.where(:id => @the_id).at(0)
+    @pic.image = params.fetch("input_image")
+    @pic.caption = params.fetch("input_caption")
+    @pic.save
+    redirect_to("/photos/#{@the_id}")
+  end
+
+  def add_photo
+    @image = Photo.new
+    @image.image = params.fetch("input_image")
+    @image.caption = params.fetch("input_caption")
+    @image.owner_id = params.fetch("input_owner_id")
+    @image.save
+    redirect_to("/photos/#{@image.id}")
+  end
+
+  def delete
+    the_id = params.fetch("photo_id")
+    @photo = Photo.where({ :id => the_id }).at(0)
+
+    @photo.destroy
+
+    redirect_to("/photos")
   end
 end

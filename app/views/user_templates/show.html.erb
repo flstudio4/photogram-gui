@@ -1,8 +1,6 @@
-<% the_user = params.fetch("user_name") %>
+<h1><%= @the_user %> </h1>
+<%= @updated_user %>
 
-<h1><%= the_user %> </h1>
-
-<% @user = User.where(:username => the_user).at(0) %>
 <dl>
   <dt>
     ID
@@ -10,12 +8,11 @@
   <dd>
     <%= @user.id %>
   </dd>
-
   <dt>
     Edit user
   </dt>
   <dd>
-    <form action="/update_user/112" method="post">
+    <form action="/update_user/<%= @user.username %>" method="post">
       <label for="browser_username">Username</label>
       <input id="browser_username" type="text" name="input_username" value=<%= @user.username %>>
 
@@ -24,7 +21,7 @@
   </dd>
 </dl>
 
-<h2>Own photos (11)</h2>
+<h2>Own photos (<%= @user.own_photos.count %>)</h2>
 
 <table border="1">
   <tr>
@@ -48,11 +45,11 @@
     </th>
   </tr>
 
-<% Photo.where(:owner_id => @user_id).each do |photo|%>
+<% @user.own_photos.order(:id => :asc).each do |photo|%>
 
     <tr>
       <td>
-        <img src="https://robohash.org/occaecatiquianimi.png?size=300x300&amp;set=set1">
+        <img src="<%= photo.image %>">
       </td>
 
       <td>
